@@ -1,0 +1,71 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Define que o pipeline será acionado quando houver push na branch main.
+  pull_request:
+    branches:
+      - main  # Aciona o pipeline para pull requests direcionados à branch main.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Utiliza a última versão do Ubuntu como ambiente para o pipeline.
+
+    steps:
+    # Passo 1: Checar o código
+    - name: Checkout code
+      uses: actions/checkout@v2  # Faz o checkout do código do repositório.
+
+    # Passo 2: Configurar Python e instalar dependências para Django
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'  # Define a versão do Python que será utilizada.
+        
+    - name: Install dependencies (Django)
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r backend/requirements.txt  # Instala as dependências do backend Django.
+
+    # Passo 3: Rodar testes do Django
+    - name: Run Django Tests
+      run: |
+        python backend/manage.py test  # Executa os testes do Django.
+
+    # Passo 4: Configurar Node.js e instalar dependências para React
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'  # Define a versão do Node.js que será utilizada.
+        
+    - name: Install dependencies (React)
+      run: |
+        cd frontend
+        npm install  # Instala as dependências do frontend React.
+
+    # Passo 5: Rodar testes do React
+    - name: Run React Tests
+      run: |
+        cd frontend
+        npm test -- --ci --reporters=default  # Executa os testes do React.
+
+    # Passo 6: Build do frontend React
+    - name: Build React app
+      run: |
+        cd frontend
+        npm run build  # Cria a versão otimizada do frontend React.
+
+    # Passo 7: Deploy do backend Django (exemplo com Heroku)
+    - name: Deploy Django app to Heroku
+      run: |
+        # Exemplo de deploy com Heroku (substitua com sua própria estratégia de deploy)
+        heroku login -i
+        git remote add heroku https://git.heroku.com/YOUR_APP_NAME.git
+        git push heroku main  # Faz o push do código para o Heroku.
+
+    # Passo 8: Deploy do frontend React (exemplo com Netlify)
+    - name: Deploy React app to Netlify
+      run: |
+        npm install netlify-cli -g
+        netlify deploy --prod --dir=frontend/build  # Faz o deploy do React para o Netlify.
