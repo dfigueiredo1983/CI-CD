@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     # APPs
     'api',
     'produto',
+    'login',
+
+    # CORS
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -80,6 +84,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # CORS
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Permitir o React acessar a API
 ]
 
 ROOT_URLCONF = 'core.urls'
