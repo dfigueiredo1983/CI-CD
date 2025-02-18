@@ -1,2 +1,3 @@
-// Usando require (CommonJS)
-require('@testing-library/jest-dom');
+// import '@testing-library/jest-dom';
+
+require('@testing-library/jest-dom'); // Usando CommonJS

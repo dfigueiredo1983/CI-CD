@@ -1,8 +1,17 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import jestPlugin from 'vite-plugin-jest';
+// import { defineConfig } from 'vite';
+// import react from '@vitejs/plugin-react';
+// import vitePluginJest from 'vite-plugin-jest';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), jestPlugin()],
-})
+// export default defineConfig({
+//   plugins: [
+//     react(),
+//     vitePluginJest(), // Adicione o plugin do Jest
+//   ],
+// });
+
+const { defineConfig } = require('vite');
+const react = require('@vitejs/plugin-react');
+
+module.exports = defineConfig({
+  plugins: [react()],
+});
