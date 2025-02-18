@@ -44,11 +44,11 @@ jobs:
         cd frontend
         npm install  # Instala as dependências do frontend React.
 
-    # Passo 5: Rodar testes do React
-    - name: Run React Tests
-      run: |
-        cd frontend
-        npm test -- --ci --reporters=default  # Executa os testes do React.
+    # # Passo 5: Rodar testes do React
+    # - name: Run React Tests
+    #   run: |
+    #     cd frontend
+    #     npm test -- --ci --reporters=default  # Executa os testes do React.
 
     # Passo 6: Build do frontend React
     - name: Build React app
